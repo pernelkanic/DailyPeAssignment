@@ -1,7 +1,12 @@
 package com.example.DailyPe.dailype.Models;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,6 +20,14 @@ public class Users {
 	private String full_name;
 	private String pan_num;
 	private String mob_num;
+
+		@Column(updatable = false)
+	    @CreationTimestamp
+	    private LocalDateTime createdAt;
+	    @UpdateTimestamp
+	    private LocalDateTime updatedAt;
+	    
+	    
 	public UUID getManager_id() {
 		return manager_id;
 	}
@@ -39,12 +52,28 @@ public class Users {
 	public void setMob_num(String mob_num) {
 		this.mob_num = mob_num;
 	}
-	public Users(UUID manager_id, String full_name, String pan_num, String mob_num) {
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public Users(UUID manager_id, String full_name, String pan_num, String mob_num, LocalDateTime createdAt,
+			LocalDateTime updatedAt) {
 		super();
 		this.manager_id = manager_id;
 		this.full_name = full_name;
 		this.pan_num = pan_num;
 		this.mob_num = mob_num;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 	public Users() {
 		super();
