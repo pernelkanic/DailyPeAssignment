@@ -3,7 +3,7 @@ Manager Entity:
   - name : String
   - email_id :String
 
-Sample values for for manager data:
+Sample values for  manager data:
   - new Manager(UUID.randomUUID().toString(), "Jack@gmail.com", "Bauer")
   - new Manager(UUID.randomUUID().toString(),"Chloe@gmail.com", "O'Brian")
   - new Manager(UUID.randomUUID().toString() ,"Kim@gmail.com", "Bauer")
