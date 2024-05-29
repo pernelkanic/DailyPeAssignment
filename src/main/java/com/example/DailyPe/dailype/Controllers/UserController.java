@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.DailyPe.dailype.DTO.BulkUpdateDTO;
 import com.example.DailyPe.dailype.DTO.UserDto;
+import com.example.DailyPe.dailype.DTO.updateDto;
 import com.example.DailyPe.dailype.Models.Users;
 import com.example.DailyPe.dailype.Services.UserService;
 
@@ -70,6 +71,17 @@ public class UserController {
 		return userservice.updateUser(updateData);
 		
 		
+	}
+	
+	@PostMapping("/delete_user")
+	public ResponseEntity<?> deleteUser(@RequestBody updateDto deleteobj){ 
+		Integer delid = userservice.deleteUser(deleteobj);
+		if(delid != null) {
+			
+			return ResponseEntity.status(HttpStatus.OK).body("The user with id "+delid+"is deleted");
+		}else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The user is not found");
+		}
 	}
 
     
