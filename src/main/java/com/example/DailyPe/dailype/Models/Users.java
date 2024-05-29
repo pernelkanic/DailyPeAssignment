@@ -1,7 +1,6 @@
 package com.example.DailyPe.dailype.Models;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,31 +10,46 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer user_id;
-
-	
-	@ManyToOne
-    @JoinColumn(name = "manager_id", referencedColumnName = "manager_id")
-    private Manager  manager;
+	private Integer UserId;
 	private String full_name;
 	private String pan_num;
 	private String mob_num;
-
+    @ManyToOne
+    private Manager manager;
+	
 		@Column(updatable = false)
 	    @CreationTimestamp
 	    private LocalDateTime createdAt;
 	    @UpdateTimestamp
 	    private LocalDateTime updatedAt;
 	    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
-	    private boolean is_active;
+	    private boolean is_active = true;
 	    
+		public Manager getManager() {
+			return manager;
+		}
+		public void setManager(Manager manager) {
+			this.manager = manager;
+		}
+		public boolean isIs_active() {
+			return is_active;
+		}
+		public void setIs_active(boolean is_active) {
+			this.is_active = is_active;
+		}
+		public Integer getUserId() {
+			return UserId;
+		}
+		public void setUserId(Integer userId) {
+			UserId = userId;
+		}
+		
 
 	public String getFull_name() {
 		return full_name;
@@ -69,29 +83,18 @@ public class Users {
 		this.updatedAt = updatedAt;
 	}
 
-	public Users(Integer user_id, Manager  manager, String full_name, String pan_num, String mob_num,
+
+	public Users(Integer userId, String full_name, String pan_num, String mob_num, Manager manager,
 			LocalDateTime createdAt, LocalDateTime updatedAt, boolean is_active) {
 		super();
-		this.user_id = user_id;
-		this.manager = manager;
+		UserId = userId;
 		this.full_name = full_name;
 		this.pan_num = pan_num;
 		this.mob_num = mob_num;
+		this.manager = manager;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.is_active = is_active;
-	}
-	public Integer getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
-	}
-	public Manager  getManager() {
-		return manager;
-	}
-	public void setManager(Manager  manager) {
-		this.manager = manager;
 	}
 	public Users() {
 		super();

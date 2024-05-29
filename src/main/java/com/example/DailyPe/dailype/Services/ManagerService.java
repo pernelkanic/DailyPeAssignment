@@ -16,7 +16,7 @@ public class ManagerService {
 		
 		this.managerrepo  = managerrepo;
 	}
-	public Optional<Manager> findById(UUID managerId) {
+	public Optional<Manager> findById(String managerId) {
 		return managerrepo.findById(managerId);
 		
 	}

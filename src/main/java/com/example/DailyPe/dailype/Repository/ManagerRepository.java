@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.DailyPe.dailype.Models.Manager;
 @Repository
-public interface ManagerRepository extends	JpaRepository<Manager, UUID> {
+public interface ManagerRepository extends	JpaRepository<Manager, String> {
 
 }
