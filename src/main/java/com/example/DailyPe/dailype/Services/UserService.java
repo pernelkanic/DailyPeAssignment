@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.DailyPe.dailype.DTO.BulkUpdateDTO;
 import com.example.DailyPe.dailype.DTO.UserDto;
+import com.example.DailyPe.dailype.DTO.updateDto;
 import com.example.DailyPe.dailype.Models.Manager;
 import com.example.DailyPe.dailype.Models.Users;
 import com.example.DailyPe.dailype.Repository.ManagerRepository;
@@ -118,7 +118,7 @@ public class UserService {
 			}
 			
 		}
-		 return ResponseEntity.ok("Normal update successful.");
+		 return ResponseEntity.ok(" update successful.");
 		
 	}
 	//helper for update
@@ -142,5 +142,32 @@ public class UserService {
 			updateuser.setPan_num(updateuser.getPan_num());
 			userrepository.save(updateuser);
 		}
+	}
+
+
+	public Integer deleteUser(updateDto deleteObj) {
+		 Users userToDelete = null;
+		    if (deleteObj.getUserId()!= null) {
+		       
+		        Optional<Users> userById = userrepository.findById(deleteObj.getUserId());
+		        if (userById.isPresent()) {
+		            userToDelete = userById.get();
+		        }
+		    } else {
+		    
+		        Optional<Users> userByMobNum = userrepository.findByMob_num(deleteObj.getMob_num());
+		        if (userByMobNum.isPresent()) {
+		            userToDelete = userByMobNum.get();
+		        }
+		    }
+
+		    // if user found, delete it from the database
+		    if (userToDelete != null) {
+		        userrepository.delete(userToDelete);
+		        return userToDelete.getUserId();
+		    } else {
+		        
+		        return null;
+		    }
 	}
 }
