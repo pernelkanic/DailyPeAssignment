@@ -2,21 +2,24 @@ package com.example.DailyPe.dailype.Models;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
 public class Manager {
-	@Id
-	@GeneratedValue(generator = "UUID")
-	private UUID manager_id;
+	  @Id
+	 
+	    private String manager_id;	
+	
 	private String name;
 	private String email_id;
-	public UUID getManager_id() {
+	public String getManager_id() {
 		return manager_id;
 	}
-	public void setManager_id(UUID manager_id) {
+	public void setManager_id(String manager_id) {
 		this.manager_id = manager_id;
 	}
 	public String getName() {
@@ -31,7 +34,7 @@ public class Manager {
 	public void setEmail_id(String email_id) {
 		this.email_id = email_id;
 	}
-	public Manager(UUID manager_id, String name, String email_id) {
+	public Manager(String manager_id, String name, String email_id) {
 		super();
 		this.manager_id = manager_id;
 		this.name = name;

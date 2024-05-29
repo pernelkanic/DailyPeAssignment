@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.DailyPe.dailype.Models.Users;
 @Repository	
-public interface UserRepository extends	 JpaRepository<Users , UUID>{
+public interface UserRepository extends	 JpaRepository<Users , Integer>{
 
 }

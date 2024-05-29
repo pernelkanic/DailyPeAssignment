@@ -1,21 +1,21 @@
 package com.example.DailyPe.dailype.Controllers;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.DailyPe.dailype.DTO.BulkUpdateDTO;
 import com.example.DailyPe.dailype.DTO.UserDto;
 import com.example.DailyPe.dailype.Models.Users;
 import com.example.DailyPe.dailype.Services.UserService;
-
-import io.micrometer.common.util.StringUtils;
 
 @RestController
 @RequestMapping("/api")
@@ -37,9 +37,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/create_user")
-	public ResponseEntity<?> postUser(UserDto userDto){
+	public ResponseEntity<?> postUser(@RequestBody UserDto userDto){
 		
-        if (StringUtils.isEmpty(userDto.getFull_name())) {
+        if (userDto.getFull_name() == null) {
             return ResponseEntity.badRequest().body("Full name must not be empty");
         }
 
@@ -58,11 +58,19 @@ public class UserController {
             return ResponseEntity.badRequest().body("Invalid PAN number format");
         }
         
-      
+    
         userservice.saveUser(userDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
     }
+	
+	@PutMapping("/update_user")
+	public ResponseEntity<?> updateUser(@RequestBody BulkUpdateDTO updateData){
+		
+		return userservice.updateUser(updateData);
+		
+		
+	}
 
     
     private boolean isValidMobileNumber(String mobNum) {
